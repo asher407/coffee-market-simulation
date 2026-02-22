@@ -96,5 +96,99 @@
       "水泥蛋糕": 45.0,
       "单人蛋糕咖啡套餐": 56.0
     }
+  },
+  "Arabica": {
+    "brand_name": "%ARABICA",
+    "category": "高端精品型",
+    "business_model": "核心商圈精品咖啡馆，高颜值设计空间，提供单品咖啡豆与手冲咖啡体验。",
+    "customer_portrait": "25-45岁高收入消费者（月收入超2万），咖啡爱好者与设计师，追求品质与体验。",
+    "promotions": "新品推荐，单品豆与手冲咖啡体验",
+    "supports_delivery": false,
+    "menu": {
+      "Americano 美式咖啡": 32,
+      "Caffe Latte 咖啡拿铁": 38,
+      "Kyoto Latte 京都拿铁": 42,
+      "Dark Latte 黑巧拿铁": 46,
+      "Spanish Latte 西班牙拿铁": 42,
+      "Matcha Latte 抹茶拿铁": 46,
+      "Dark Chocolate 黑巧克力": 40,
+      "Iced Dark Chocolate 冰黑巧克力": 42
+    }
+  },
+  "Starbucks": {
+    "brand_name": "星巴克",
+    "category": "高端效率型",
+    "business_model": "全球连锁品牌，商圈与办公区域标准店，强势品牌与社交空间结合。",
+    "customer_portrait": "25-45岁都市职场精英（月收入1.5万+），品牌忠诚度高，重视空间体验。",
+    "promotions": "会员积分、季节新品促销、App优惠",
+    "supports_delivery": true,
+    "menu": {
+      "拿铁": 33,
+      "美式咖啡": 30,
+      "卡布奇诺": 33,
+      "焦糖玛奇朵": 37,
+      "摩卡": 36,
+      "椰子丝绒燕麦拿铁": 39,
+      "比利时黑巧拿铁": 39,
+      "桃花风味鸳鸯拿铁": 41,
+      "冷萃咖啡": 37
+    }
+  },
+  "Yongbo": {
+    "brand_name": "永璞咖啡",
+    "category": "新锐创意型",
+    "business_model": "门店与线上融合，创意特调搭配高端豆种，社交媒体驱动的新消费品牌。",
+    "customer_portrait": "18-35岁Z世代与年轻白领，追求新品与创意，热衷社交分享，对价格敏感。",
+    "promotions": "线上优惠券、限时新品、创意特调组合",
+    "supports_delivery": true,
+    "menu": {
+      "美式 Americano": 18,
+      "拿铁 Latte": 20,
+      "卡布奇诺 Cappuccino": 20,
+      "澳白 Flat White": 20,
+      "生椰拿铁": 22,
+      "摩卡 Mocha": 22,
+      "红石榴冷萃": 25,
+      "菠萝芒果气泡冷萃": 25,
+      "奶茶": 18
+    }
+  },
+  "PiYe": {
+    "brand_name": "皮爷咖啡",
+    "category": "新锐创意型",
+    "business_model": "新型精品咖啡馆，融合创意饮品与高端食品，打卡社交属性强。",
+    "customer_portrait": "22-38岁一线城市白领与艺术人群（月收入1万+），热衷社交媒体与打卡。",
+    "promotions": "套餐优惠、新品限定、会员活动",
+    "supports_delivery": true,
+    "menu": {
+      "拿铁咖啡": 36,
+      "芝士分子拿铁": 38,
+      "抹茶拿铁": 36,
+      "焦糖烤拿铁": 38,
+      "云镜拿铁": 39,
+      "蜂蜜柠檬气泡美式": 30,
+      "琥境琉光拿铁": 39,
+      "琥境琉光美式": 33,
+      "埃塞瑰夏坦露双子星": 45
+    }
+  },
+  "BluebottleC": {
+    "brand_name": "蓝瓶咖啡",
+    "category": "高端精品型",
+    "business_model": "国际精品咖啡连锁，核心商圈标准店，强调咖啡工艺与专业水准。",
+    "customer_portrait": "28-50岁高收入专业人士（月收入2万+），咖啡鉴赏家，重视品质与专业性。",
+    "promotions": "限定单品、当季推荐、会员体验",
+    "supports_delivery": true,
+    "menu": {
+      "AMERICANO 美式咖啡": 32,
+      "CAPPUCCINO 卡布奇诺": 38,
+      "LATTE (HOT) 拿铁": 42,
+      "LATTE (ICED) 拿铁冰": 42,
+      "MOCHA 摩卡": 46,
+      "GIBRALTAR 直布罗陀": 35,
+      "COLD BREW 冷萃咖啡": 40,
+      "JUNIPER BERRY LATTE 植香杜松子拿铁": 48,
+      "BLACK TEA 红茶": 35
+    }
   }
 }
