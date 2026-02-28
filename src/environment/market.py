@@ -2,6 +2,7 @@ import pandas as pd
 import json
 import time
 import os
+import random
 from src.agents.customer import Customer
 from src.llm.client import DeepSeekClient
 
@@ -11,6 +12,9 @@ class CoffeeMarket:
         
         # 1. 加载顾客数据
         self.population_df = pd.read_csv(population_csv)
+        if 'brand_preference' not in self.population_df.columns or 'brand_loyalty' not in self.population_df.columns:
+            self._add_brand_preference_columns()
+            self.population_df.to_csv(population_csv, index=False, encoding='utf-8-sig')
         self.customers = []
         for _, row in self.population_df.iterrows():
             self.customers.append(Customer(profile_data=row.to_dict()))
@@ -39,18 +43,43 @@ class CoffeeMarket:
                 
             shop_instance = {
                 "id": shop_id,
+                "brand_id": brand_id,
                 "brand_name": brand_info['brand_name'],
                 "category": brand_info['category'],
                 "business_model": brand_info['business_model'],
                 "promotions": brand_info['promotions'],
                 "menu": brand_info['menu'],
-                "supports_delivery": brand_info['supports_delivery'],
+                "supports_delivery": True,  # 强制所有店铺支持外卖配送
                 # 实体特有的动态物理属性
                 "location": setup['location'],
                 "queue_time": setup['current_queue']
             }
             actual_shops.append(shop_instance)
         return actual_shops
+
+    def _add_brand_preference_columns(self):
+        """为现有人口数据补充品牌偏好与忠诚度"""
+        brand_preference_weights = {
+            'Luckin': 0.45,
+            'Starbucks': 0.14,
+            'Nowwa': 0.10,
+            'Manner': 0.08,
+            'Tims': 0.04,
+            'Seesaw': 0.03,
+            'MStand': 0.03,
+            'Arabica': 0.02,
+            'PiYe': 0.02,
+            'BluebottleC': 0.01,
+            'Yongbo': 0.08
+        }
+        brands = list(brand_preference_weights.keys())
+        weights = list(brand_preference_weights.values())
+
+        preferred_brands = random.choices(brands, weights=weights, k=len(self.population_df))
+        loyalties = [round(random.uniform(0.2, 0.8), 2) for _ in range(len(self.population_df))]
+
+        self.population_df['brand_preference'] = preferred_brands
+        self.population_df['brand_loyalty'] = loyalties
 
     def run_simulation(self, sample_size=10, platform_rules=None):
             print(f"\n⏳ 开始模拟，随机抽取 {sample_size} 名顾客进行决策测试...")

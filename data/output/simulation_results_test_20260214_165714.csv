@@ -1,6 +1,0 @@
-﻿customer_id,age_group,occupation,income,preference,price_sensitivity,decision,brand,method,item,price,reason
-347,18-24,Student,2660,Latte,High,Shop_1_Delivery,瑞幸咖啡,外卖,生椰拿铁,20.8,价格敏感，懒，免运费外卖划算
-215,65+,Retired,7823,Tea,High,None,,,,0.0,价格敏感，更爱喝茶
-341,25-34,White Collar,13139,Specialty,Medium,Shop_2_Walk,Nowwa 挪瓦咖啡,自提,好能量电解质生椰美式,18.9,距离近排队短，价格适中
-972,55-64,White Collar,5417,Americano,High,Shop_2_Walk,Nowwa 挪瓦咖啡,自提,好能量电解质生椰美式,18.9,价格实惠，排队时间短，步行近
-28,35-44,Service/Blue,6150,Specialty,High,Shop_2_Walk,Nowwa 挪瓦咖啡,自提,好能量电解质生椰美式,18.9,价格实惠，排队时间短，步行近

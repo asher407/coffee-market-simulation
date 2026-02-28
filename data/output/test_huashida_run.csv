@@ -1,6 +1,0 @@
-﻿customer_id,age_group,occupation,income,preference,price_sensitivity,decision,brand,method,item,price,reason
-286,35-44,White Collar,14563,Specialty,Medium,Shop_2_Walk,Nowwa 挪瓦咖啡,自提,好能量电解质生椰美式,18.9,排队时间短，价格适中，符合工作日效率需求
-308,25-34,White Collar,10650,Americano,Medium,Shop_1_Walk,瑞幸咖啡,自提,加浓美式,20.4,就近购买，排队时间可接受，美式口味符合偏好
-409,45-54,Service/Blue,7753,Latte,High,Shop_2_Walk,Nowwa 挪瓦咖啡,自提,生椰拿铁,20.9,排队时间短，价格适中，步行近
-157,35-44,Service/Blue,7146,Americano,High,Shop_2_Walk,Nowwa 挪瓦咖啡,自提,好能量电解质生椰美式,18.9,价格最低，排队时间短，步行近
-594,35-44,Freelance,7776,Specialty,High,Shop_2_Walk,Nowwa 挪瓦咖啡,自提,好能量电解质生椰美式,18.9,价格实惠，排队时间短，步行近

@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.venv
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
+data/output/simulation_results_*.csv
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*_test.py
+*_verify.py
+analyze_*.py
+!analyze.py

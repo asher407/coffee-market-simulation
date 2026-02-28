@@ -24,6 +24,35 @@ class ShanghaiCustomerGenerator:
             'Retired':      {'mean': 6000,  'sigma': 0.3}  # 退休金
         }
 
+        # 4. 品牌偏好分布 (按市场规模预设)
+        self.brand_preference_weights = {
+            'Luckin': 0.45,
+            'Starbucks': 0.14,
+            'Nowwa': 0.10,
+            'Manner': 0.08,
+            'Tims': 0.04,
+            'Seesaw': 0.03,
+            'MStand': 0.03,
+            'Arabica': 0.02,
+            'PiYe': 0.02,
+            'BluebottleC': 0.01,
+            'Yongbo': 0.08
+        }
+
+        self.brand_name_map = {
+            'Luckin': '瑞幸咖啡',
+            'Starbucks': '星巴克',
+            'Nowwa': 'Nowwa 挪瓦咖啡',
+            'Manner': 'Manner Coffee',
+            'Tims': 'Tims 天好咖啡',
+            'Seesaw': 'Seesaw Coffee',
+            'MStand': 'M Stand',
+            'Arabica': '%ARABICA',
+            'PiYe': '皮爷咖啡',
+            'BluebottleC': '蓝瓶咖啡',
+            'Yongbo': '永璞咖啡'
+        }
+
     def _get_occupation_by_age(self, age_group):
         """基于年龄的职业条件概率 P(Occupation|Age)"""
         # 逻辑：年轻人多为学生/初级白领，中年人多为管理/高薪，老年人退休
@@ -90,6 +119,14 @@ class ShanghaiCustomerGenerator:
             
         return fav_type, caffeine_need, p_sens
 
+    def _get_brand_preference(self):
+        """基于市场分布生成品牌偏好与忠诚度"""
+        brands = list(self.brand_preference_weights.keys())
+        probs = list(self.brand_preference_weights.values())
+        preferred_brand = np.random.choice(brands, p=probs)
+        loyalty = round(float(np.random.uniform(0.2, 0.8)), 2)
+        return preferred_brand, loyalty
+
     def generate_population(self, n=100):
         data = []
         for _ in range(n):
@@ -97,12 +134,15 @@ class ShanghaiCustomerGenerator:
             occupation = self._get_occupation_by_age(age_group)
             income = self._get_income(occupation)
             fav_type, freq, p_sens = self._get_preferences(age_group, occupation, income)
+            preferred_brand, brand_loyalty = self._get_brand_preference()
+            preferred_brand_name = self.brand_name_map.get(preferred_brand, preferred_brand)
             
             # 生成 Prompt 描述
             desc = (
                 f"你是一名{age_group}岁的{occupation}，生活在上海。"
                 f"月收入约{income}元。你对咖啡的需求频率是{freq}。"
                 f"你最喜欢的口味是{fav_type}。在价格方面，你的敏感度属于{p_sens}。"
+                f"你对{preferred_brand_name}有一定偏好，品牌忠诚度约{brand_loyalty}。"
             )
             
             data.append({
@@ -113,6 +153,8 @@ class ShanghaiCustomerGenerator:
                 "preference": fav_type,
                 "frequency": freq,
                 "price_sensitivity": p_sens,
+                "brand_preference": preferred_brand,
+                "brand_loyalty": brand_loyalty,
                 "persona_description": desc
             })
             

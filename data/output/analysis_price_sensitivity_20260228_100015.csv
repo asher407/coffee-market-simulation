@@ -1,0 +1,4 @@
+price_sensitivity,total_purchases,total_spend,avg_spend,price_min,price_max,price_median,delivery_ratio
+Low,85,1650.7,19.42,12.0,38.0,18.0,56.47
+Medium,527,9985.5,18.95,0.0,42.0,18.0,63.95
+High,388,7382.4,19.03,0.0,36.0,18.0,59.79

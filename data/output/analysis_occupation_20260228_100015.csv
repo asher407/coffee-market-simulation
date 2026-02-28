@@ -1,0 +1,7 @@
+occupation,total_customers,total_purchases,total_spend,avg_spend,top_brands,delivery_ratio
+White Collar,308,308,5827.1,18.92,"瑞幸咖啡(131), 星巴克(47), Nowwa 挪瓦咖啡(33)",67.21
+Tech/Finance,186,186,3528.1,18.97,"瑞幸咖啡(82), 星巴克(22), Nowwa 挪瓦咖啡(19)",60.22
+Freelance,155,155,2968.7,19.15,"瑞幸咖啡(59), 星巴克(29), Nowwa 挪瓦咖啡(15)",78.06
+Service/Blue,163,163,2928.9,17.97,"瑞幸咖啡(61), 星巴克(27), 永璞咖啡(17)",77.3
+Retired,134,134,2850.6,21.27,"瑞幸咖啡(57), 星巴克(14), Manner Coffee(13)",0.0
+Student,54,54,915.2,16.95,"瑞幸咖啡(25), 星巴克(10), Nowwa 挪瓦咖啡(8)",94.44

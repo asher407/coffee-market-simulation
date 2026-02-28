@@ -21,6 +21,11 @@ import json
 from datetime import datetime
 from dotenv import load_dotenv
 
+# 修复 Windows 编码问题
+if sys.stdout.encoding != 'utf-8':
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
 from src.environment.market import CoffeeMarket
 from src.utils.population_generator import ShanghaiCustomerGenerator
 
@@ -50,6 +55,14 @@ class SimulationConfig:
         "demo": {
             "sample_size": 20,
             "description": "演示运行 (20个顾客)"
+        },
+        "half": {
+            "sample_size": 50,
+            "description": "半量运行 (50个顾客)"
+        },
+        "mass": {
+            "sample_size": 1000,
+            "description": "大规模运行 (1000个顾客)"
         },
         "full": {
             "sample_size": 100,
@@ -101,15 +114,78 @@ class SimulationConfig:
             "location": (1100, 1700),
             "current_queue": 4,
             "description": "创意体验 Seesaw - 精品咖啡馆"
+        },
+        # 三期：全品牌覆盖
+        "Shop_7": {
+            "brand": "Tims",
+            "location": (950, 1500),
+            "current_queue": 3,
+            "description": "Tims 天好咖啡 - 咖啡+暖食便捷餐饮"
+        },
+        "Shop_8": {
+            "brand": "Arabica",
+            "location": (1150, 1600),
+            "current_queue": 2,
+            "description": "%ARABICA - 高端精品咖啡馆"
+        },
+        "Shop_9": {
+            "brand": "Yongbo",
+            "location": (900, 1700),
+            "current_queue": 4,
+            "description": "永璞咖啡 - 新锐创意品牌"
+        },
+        "Shop_10": {
+            "brand": "PiYe",
+            "location": (1200, 1500),
+            "current_queue": 5,
+            "description": "皮爷咖啡 - 社交打卡新宠"
+        },
+        "Shop_11": {
+            "brand": "BluebottleC",
+            "location": (1000, 1400),
+            "current_queue": 3,
+            "description": "蓝瓶咖啡 - 国际精品咖啡连锁"
+        },
+        # 四期：同品牌多店分布（贴近真实商圈密度）
+        "Shop_12": {
+            "brand": "Luckin",
+            "location": (980, 1120),
+            "current_queue": 12,
+            "description": "瑞幸咖啡 - 二店（教学楼侧门）"
+        },
+        "Shop_13": {
+            "brand": "Nowwa",
+            "location": (1030, 1300),
+            "current_queue": 2,
+            "description": "Nowwa 挪瓦 - 二店（社区外卖点）"
+        },
+        "Shop_14": {
+            "brand": "Manner",
+            "location": (1020, 1750),
+            "current_queue": 6,
+            "description": "Manner - 二店（商场内店）"
+        },
+        "Shop_15": {
+            "brand": "Starbucks",
+            "location": (880, 1550),
+            "current_queue": 9,
+            "description": "星巴克 - 二店（北广场）"
+        },
+        "Shop_16": {
+            "brand": "Tims",
+            "location": (960, 1450),
+            "current_queue": 4,
+            "description": "Tims 天好咖啡 - 二店（写字楼入口）"
         }
     }
     
     # 平台规则（可模拟不同营销策略）
     PLATFORM_RULES_DEFAULT = {
-        "event_name": "开学季：外卖全平台免运费",
-        "free_delivery_campaign": True,
-        "coupon_threshold": 999,  # 满多少元
-        "coupon_amount": 0        # 优惠金额
+        "event_name": "外卖福利：免运费+阶梯红包（满10减3/满15减5/满30减10）",
+        "free_delivery_campaign": True,      # 全平台免运费
+        "delivery_coupons_enabled": True,    # 启用外卖红包
+        "coupon_threshold": 999,             # 通用满减门槛（暂不启用）
+        "coupon_amount": 0                   # 通用满减金额（暂不启用）
     }
     
     PLATFORM_RULES_AGGRESSIVE = {
@@ -193,7 +269,7 @@ class SimulationRunner:
             print(f"❌ 市场初始化失败: {e}\n")
             return False
     
-    def run(self, platform_rules=None):
+    def run(self, platform_rules=None, output_filename=None):
         """执行仿真"""
         print("=" * 70)
         print(f"☕ 开始仿真 - 模式: {self.mode.upper()} ({self.config['description']})")
@@ -227,7 +303,11 @@ class SimulationRunner:
         
         # 4. 导出结果
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_filename = f"simulation_results_{self.mode}_{timestamp}.csv"
+        if output_filename:
+            if not output_filename.lower().endswith(".csv"):
+                output_filename += ".csv"
+        else:
+            output_filename = f"simulation_results_{self.mode}_{timestamp}.csv"
         
         try:
             self.market.export_results(output_filename)
@@ -270,8 +350,10 @@ def create_parser():
 例子:
   python main.py --mode test          # 快速测试 (5个顾客)
   python main.py --mode full          # 完整运行 (100个顾客)
-  python main.py --mode benchmark     # 性能测试 (200个顾客)
-  python main.py --mode test --api-key sk-xxx  # 指定 API Key
+    python main.py --mode benchmark     # 性能测试 (200个顾客)
+    python main.py --mode mass          # 大规模运行 (1000个顾客)
+    python main.py --mode test --api-key sk-xxx  # 指定 API Key
+    python main.py --mode mass --output data/output/simulation_results_1000.csv
         """
     )
     
@@ -294,6 +376,13 @@ def create_parser():
         choices=["default", "aggressive", "premium"],
         default="default",
         help="平台营销策略 (默认: default)"
+    )
+
+    parser.add_argument(
+        "--output",
+        type=str,
+        default=None,
+        help="结果输出文件名 (可包含路径，默认自动生成)"
     )
     
     return parser
@@ -328,7 +417,7 @@ def main():
     platform_rules = get_platform_rules(args.strategy)
     
     # 5. 执行仿真
-    success = runner.run(platform_rules=platform_rules)
+    success = runner.run(platform_rules=platform_rules, output_filename=args.output)
     
     # 6. 返回退出码
     sys.exit(0 if success else 1)
